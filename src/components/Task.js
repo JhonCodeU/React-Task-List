@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faEdit, faTimes, faSquare } from '@fortawesome/free-solid-svg-icons'
 
-const Task = ({ task, toggleCompletedTask }) => {
+const Task = ({ task, toggleCompletedTask, editTask, deletingTask }) => {
 
   const [editingTask, setEditingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState(task.name);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    editTask(task.id, newTaskName);
     setEditingTask(false);
   }
 
@@ -38,8 +39,16 @@ const Task = ({ task, toggleCompletedTask }) => {
         }
       </div>
       <div className='lista-tareas__contenedor-botones'>
-        <FontAwesomeIcon className='lista-tareas__icono lista-tareas__icono-accion' icon={faEdit} onClick={() => setEditingTask(true)} />
-        <FontAwesomeIcon className='lista-tareas__icono lista-tareas__icono-accion' icon={faTimes} />
+        <FontAwesomeIcon
+          className='lista-tareas__icono lista-tareas__icono-accion'
+          icon={faEdit}
+          onClick={() => setEditingTask(true)} />
+
+        <FontAwesomeIcon
+          className='lista-tareas__icono lista-tareas__icono-accion'
+          icon={faTimes}
+          onClick={() => deletingTask(task.id)}
+        />
       </div>
     </li>
   );

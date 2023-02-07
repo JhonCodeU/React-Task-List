@@ -13,14 +13,22 @@ const App = () => {
   ]
 
   const [tasks, changeTasks] = useState(allTasks);
+  const [showCompletedTasks, changeShowCompletedTasks] = useState(true);
 
   console.log('index:', tasks);
 
   return (
     <div className='contenedor'>
-      <Header />
+      <Header
+        showCompletedTasks={showCompletedTasks}
+        changeShowCompletedTasks={changeShowCompletedTasks}
+      />
       <Form tasks={tasks} changeTasks={changeTasks} />
-      <TaskList tasks={tasks} changeTasks={changeTasks} />
+      <TaskList
+        tasks={tasks}
+        changeTasks={changeTasks}
+        showCompletedTasks={showCompletedTasks}
+      />
     </div>
   );
 }

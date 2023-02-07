@@ -1,17 +1,33 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
+const Header = ({ showCompletedTasks, changeShowCompletedTasks }) => {
 
+  const toggleCompletedTask = () => {
+    changeShowCompletedTasks(!showCompletedTasks);
+  }
 
-const Header = () => {
   return (
     <header className="header">
       <h1 className='header__titulo'>Task list</h1>
-      <button className='header__boton'>
-        No show completed
-        <FontAwesomeIcon className='header__icono-boton' icon={faEyeSlash} />
-      </button>
+      {showCompletedTasks ?
+        <button
+          className='header__boton'
+          onClick={() => toggleCompletedTask()}
+        >
+          No show completed
+          <FontAwesomeIcon className='header__icono-boton' icon={faEyeSlash} />
+        </button>
+        :
+        <button
+          className='header__boton'
+          onClick={() => toggleCompletedTask()}
+        >
+          Show completed
+          <FontAwesomeIcon className='header__icono-boton' icon={faEye} />
+        </button>
+      }
     </header>
   );
 }

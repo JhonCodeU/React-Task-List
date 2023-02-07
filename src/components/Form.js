@@ -11,6 +11,11 @@ const Form = ({ tasks, changeTasks }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (inputTask.trim() === '') {
+      alert('No puedes ingresar una tarea vacía');
+      return;
+    }
+
     changeTasks([...tasks, { id: uuidv4(), name: inputTask, completed: false }]);
     changeInputTask('');
   }
