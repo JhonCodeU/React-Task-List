@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
 import Header from './components/Header';
 import Form from './components/Form';
@@ -6,17 +6,31 @@ import TaskList from './components/TaskList';
 
 const App = () => {
 
-  const allTasks = [
-    { id: 1, name: 'Organizar la casa', completed: false },
-    { id: 2, name: 'Hacer la compra', completed: true },
-    { id: 3, name: 'Pasear al perro', completed: false }
-  ]
+  // Get tasks from local storage
+  let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  let showCompleted = '';
 
+  // If there is no value in local storage, use this default value
+  if (localStorage.getItem('showCompletedTasks') === null) {
+    showCompleted = true;
+  } else {
+    showCompleted = JSON.parse(localStorage.getItem('showCompletedTasks'));
+  }
+
+  // If there is no value in local storage, use this default value
   const [tasks, changeTasks] = useState(allTasks);
-  const [showCompletedTasks, changeShowCompletedTasks] = useState(true);
+  const [showCompletedTasks, changeShowCompletedTasks] = useState(showCompleted);
 
-  console.log('index:', tasks);
+  // Save tasks in local storage
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
+  useEffect(() => {
+    localStorage.setItem('showCompletedTasks', JSON.stringify(showCompletedTasks));
+  }, [showCompletedTasks]);
+
+  // Add new task
   return (
     <div className='contenedor'>
       <Header
