@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faEdit, faTimes, faSquare } from '@fortawesome/free-solid-svg-icons'
 
-const Task = ({ task }) => {
+const Task = ({ task, toggleCompletedTask }) => {
 
   const [editingTask, setEditingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState(task.name);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Actualizando tarea...');
     setEditingTask(false);
   }
 
   return (
     <li className='lista-tareas__tarea' key={task.id}>
-      <FontAwesomeIcon className='lista-tareas__icono lista-tareas__icono-check' icon={faCheckSquare} />
+      <FontAwesomeIcon
+        className='lista-tareas__icono lista-tareas__icono-check'
+        icon={task.completed ? faCheckSquare : faSquare}
+        onClick={() => toggleCompletedTask(task.id)}
+      />
       <div className='lista-tareas__texto'>
         {editingTask ? (
           <form onSubmit={handleSubmit} className='formulario-editar-tarea'>
